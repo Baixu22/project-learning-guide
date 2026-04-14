@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Learning Guide"
+  short_description: "Turn an open workspace into incremental source-learning docs"
+  category: "Developer Tools"

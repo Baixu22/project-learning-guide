@@ -1,0 +1,165 @@
+# Skill Configuration Parameters
+
+Users can override these parameters in their requests to customize skill behavior.
+
+## Analysis Depth Configuration
+
+```yaml
+analysis_depth:
+  # Maximum lines to read per chunk
+  max_chunk_size: 200
+  
+  # Minimum confidence threshold to accept conclusions (0.0-1.0)
+  min_confidence_threshold: 0.7
+  
+  # Maximum files to analyze per pass
+  max_files_per_pass: 50
+  
+  # Maximum symbols to analyze in deep_analysis mode per session
+  max_symbols_per_session: 10
+```
+
+### User Overrides
+```
+# User can specify in request:
+- "使用 deep_analysis 模式，max_chunk_size=100"
+- "快速扫描，max_files_per_pass=10"
+- "这次只分析 3 个模块，max_symbols_per_session=3"
+```
+
+## Documentation Style Configuration
+
+```yaml
+doc_style:
+  # Document language
+  language: "mixed"  # "zh-CN" | "en-US" | "mixed"
+  
+  # Detail level for explanations
+  detail_level: "beginner"  # "beginner" | "intermediate" | "advanced"
+  
+  # Include code examples in docs
+  include_code_examples: true
+  
+  # Include counter-example comparisons
+  include_counter_examples: true
+  
+  # Minimum module relationships before generating mermaid
+  mermaid_threshold: 3
+  
+  # Maximum code snippet length (lines)
+  max_snippet_length: 20
+```
+
+### User Overrides
+```
+# User can specify in request:
+- "生成中文文档，language=zh-CN"
+- "高级教程即可，detail_level=advanced"
+- "不要生成 mermaid 图，mermaid_threshold=999"
+- "代码示例可以长一些，max_snippet_length=30"
+```
+
+## Performance Configuration
+
+```yaml
+performance:
+  # Maximum context window usage (tokens)
+  max_context_tokens: 8000
+  
+  # Enable parallel tool calls
+  parallel_tool_calls: true
+  
+  # Enable context cache across sessions
+  cache_enabled: true
+  
+  # Maximum execution time per skill (seconds)
+  max_skill_duration_s: 300  # 5 minutes
+```
+
+### User Overrides
+```
+# User can specify in request:
+- "不要并行调用，parallel_tool_calls=false"
+- "这次不用缓存，cache_enabled=false"
+- "限制 token 使用，max_context_tokens=4000"
+```
+
+## Teaching Strategy Configuration
+
+```yaml
+teaching_strategy:
+  # Always include few-shot analogies for complex patterns
+  use_analogies: true
+  
+  # Always include counter-examples (Why Not analysis)
+  use_counter_examples: true
+  
+  # Minimum practice tasks per module
+  min_practice_tasks: 3
+  
+  # Practice task difficulty levels
+  practice_levels:
+    - "basic"
+    - "intermediate"  
+    - "challenge"
+  
+  # Include confidence annotations
+  use_confidence_annotations: true
+```
+
+### User Overrides
+```
+# User can specify in request:
+- "不需要练习任务，min_practice_tasks=0"
+- "不要反例对比，use_counter_examples=false"
+- "只要基础练习，practice_levels=['basic']"
+```
+
+## Output Format Configuration
+
+```yaml
+output_format:
+  # Use markdown tables vs mermaid (when appropriate)
+  prefer_mermaid: true
+  
+  # Wrap mermaid node labels in double quotes
+  mermaid_double_quotes: true
+  
+  # Use anchor comments for incremental updates
+  use_anchors: true
+  
+  # Generate both Chinese and English section titles
+  bilingual_titles: true
+```
+
+### User Overrides
+```
+# User can specify in request:
+- "用表格代替流程图，prefer_mermaid=false"
+- "不要双语标题，bilingual_titles=false"
+- "这次全量重写，use_anchors=false"
+```
+
+## Configuration Priority
+
+1. **System defaults** (this file)
+2. **Status.yaml overrides** (if user previously set preferences)
+3. **User request overrides** (explicit parameters in user message)
+
+User request parameters take highest priority and override all defaults.
+
+## Example User Requests with Parameters
+
+```
+# Quick start with custom limits
+"帮我快速了解这个项目，max_files_per_pass=20，language=zh-CN"
+
+# Deep analysis with performance limits  
+"深入分析 auth 模块，max_context_tokens=6000，detail_level=intermediate"
+
+# Maintenance with specific anchors
+"重写 entry-lifecycle 和 module-map 这两个锚点，use_counter_examples=true"
+
+# No frills, minimal output
+"只要技术骨架，不要类比和反例，use_analogies=false，use_counter_examples=false"
+```
