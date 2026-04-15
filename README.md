@@ -20,11 +20,9 @@
 - 新入职的实习生
 - 转领域需要快速上手的开发者
 
-**✨ v2.0 新特性**：集成 **zread CLI**，项目发现速度提升 40-60%，同时支持版本管理、执行日志和 stdio 自动化模式。
-
 ```mermaid
 flowchart LR
-  A["📁 源代码<br/>工作区"] --> B["🔍 混合发现<br/>Zread + Skills"]
+  A["📁 源代码<br/>工作区"] --> B["🔍 技能分析<br/>Skills"]
   B --> C["📚 教学文档<br/>Documentation"]
   C --> D["🎯 学习者<br/>Users"]
 
@@ -42,7 +40,6 @@ flowchart LR
 |------|------|------|
 | 🧩 **可组合技能** | 模块化架构：基础技能 + 组合技能 | 灵活性 +60% |
 | ⚙️ **高度可配置** | 90% 的行为可通过参数定制 | 用户控制力 +90% |
-| 🚀 **Zread 集成** | CLI 快速生成 wiki | 速度提升 40-60% |
 | 🎓 **智能教学** | Few-shot 类比 + 反例对比 | 理解效果 +40% |
 | 🛡️ **元认知** | 三级确定度系统减少幻觉 | 幻觉 -50% |
 | 📦 **版本管理** | 追踪 wiki 和教学文档版本 | 可恢复性 +100% |
@@ -60,7 +57,7 @@ flowchart LR
 ```mermaid
 flowchart TB
   subgraph Base_Skills["🧱 基础技能 (原子操作)"]
-    B1["hybrid_discover<br/>Zread + 项目发现"]
+    B1["discover_project<br/>项目发现"]
     B2["analyze_symbol<br/>符号分析"]
     B3["write_module_doc<br/>文档生成"]
     B4["manage_status<br/>状态 + 版本 + 日志"]
@@ -92,7 +89,7 @@ flowchart TB
 
 | 技能 | 文件 | 职责 |
 |------|------|------|
-| 🔍 **Hybrid Discover** | `skills/hybrid_discover.md` | Zread wiki + 传统发现 |
+| 🔍 **Discover Project** | `skills/discover_project.md` | 扫描项目结构，识别技术栈和入口 |
 | 🔬 **Analyze Symbol** | `skills/analyze_symbol.md` | 深入分析函数/类/模块 |
 | 📝 **Write Module Doc** | `skills/write_module_doc.md` | 生成/更新模块文档 |
 | 💾 **Manage Status** | `skills/manage_status.md` | 状态 + 版本 + 日志管理 |
@@ -133,43 +130,22 @@ doc_maintenance:
 
 ## 🚀 快速开始
 
-### 前置要求（可选但推荐）
-
-安装 zread CLI 可获得 40-60% 的项目发现加速：
-
-```bash
-# npm
-npm install -g zread_cli
-
-# Homebrew
-brew tap ZreadAI/homebrew-tap
-brew install zread
-
-# 验证安装
-zread version
-```
-
 ### 使用方式
 
 在支持 Skills 的 AI 编程工具中使用（如 Claude Code、Cursor、Codex）：
 
-#### 1️⃣ 快速启动项目学习（使用 Zread）
+#### 1️⃣ 快速启动项目学习
 
 ```
-帮我从打开的工作区开始生成学习文档，enable_zread=true
+帮我从打开的工作区开始生成学习文档
 ```
 
 **输出产物**：
 ```
-.zread/wiki/                         # Zread wiki（自动生成）
-└── versions/<id>/
-    ├── wiki.json                    # 模块索引
-    └── *.md                         # Wiki 页面
-
 .ai/
 ├── status.yaml                      # 进度追踪
-├── versions/                        # 教学文档版本（新功能）
-└── log/                             # 执行日志（新功能）
+├── versions/                        # 教学文档版本
+└── log/                             # 执行日志
     ├── discovery.log
     └── error.log
 
@@ -311,7 +287,7 @@ class Container {
 
 ```
 project-learning-guide/
-├── README.md                         # 📖 主文档（英文）
+├── README.md                         # 📖 主文档
 ├── README.zh-CN.md                   # 📖 中文版
 ├── SKILL.md                          # 🔧 主技能定义
 │
@@ -320,7 +296,6 @@ project-learning-guide/
 │   ├── analyze_symbol.md             # 基础：符号分析
 │   ├── write_module_doc.md           # 基础：文档生成
 │   ├── manage_status.md              # 基础：状态管理
-│   ├── hybrid_discover.md            # 基础：混合发现（Zread + 传统）
 │   ├── composite_quick_start.md      # 组合：快速启动
 │   ├── composite_deep_analysis.md    # 组合：深度分析
 │   ├── composite_doc_maintenance.md  # 组合：文档维护
@@ -396,7 +371,7 @@ project-learning-guide/
 
 | 文档 | 用途 | 链接 |
 |------|------|------|
-| **README.md** | 主文档（英文） | [查看](README.md) |
+| **README.md** | 主文档 | [查看](README.md) |
 | **README.zh-CN.md** | 中文指南 | [查看](README.zh-CN.md) |
 | **SKILL.md** | 主技能定义 | [查看](SKILL.md) |
 | **skills/config.yaml** | 配置参数 | [查看](skills/config.yaml) |
