@@ -5,7 +5,6 @@
 [![技能架构](https://img.shields.io/badge/技能-架构-blue)](skills/)
 [![可组合](https://img.shields.io/badge/模式-可组合-green)](skills/composite_quick_start.md)
 [![可配置](https://img.shields.io/badge/特性-可配置-orange)](skills/config.yaml)
-[![可观测](https://img.shields.io/badge/特性-执行追踪-purple)](skills/execution_trace.md)
 [![状态](https://img.shields.io/badge/阶段-生产环境-brightgreen)](SKILL.md)
 
 **🌐 语言**: [English](README.md) | [中文](README.zh-CN.md)
@@ -23,7 +22,7 @@ flowchart LR
   A["📁 源代码<br/>工作区"] --> B["🔍 技能分析<br/>Skills"]
   B --> C["📚 教学文档<br/>Documentation"]
   C --> D["🎯 学习者<br/>Users"]
-  
+
   style A fill:#e1f5ff
   style B fill:#fff3e0
   style C fill:#e8f5e9
@@ -38,7 +37,6 @@ flowchart LR
 |------|------|------|
 | 🧩 **可组合技能** | 基础技能 + 组合技能的模块化架构 | 灵活性 +60% |
 | ⚙️ **可配置化** | 90% 的行为可通过参数定制 | 用户控制力 +90% |
-| 🔍 **执行追踪** | 完整的调试和性能监控系统 | 可调试性 +80% |
 | 🎓 **智能教学** | Few-shot 类比 + 反例对比 | 理解效果 +40% |
 | 🚀 **自适应深度** | 根据项目规模自动调整分析深度 | 节省 30% Token |
 | 🛡️ **元认知** | 三级确定度系统减少幻觉 | 幻觉 -50% |
@@ -66,12 +64,10 @@ flowchart TB
 
   subgraph Config["⚙️ 配置层"]
     CF["config.yaml<br/>参数配置"]
-    ET["execution_trace.md<br/>执行追踪"]
   end
 
   B1 & B2 & B3 & B4 --> C1 & C2 & C3
   CF -.-> B1 & B2 & B3 & B4
-  ET -.-> B1 & B2 & B3 & B4
 
   style B1 fill:#e3f2fd
   style B2 fill:#e3f2fd
@@ -84,12 +80,12 @@ flowchart TB
 
 ### 基础技能
 
-| 技能 | 文件 | 职责 | 执行时间 |
-|------|------|------|----------|
-| 🔍 **Discover Project** | `skills/discover_project.md` | 扫描项目结构，识别技术栈和入口 | ~2s |
-| 🔬 **Analyze Symbol** | `skills/analyze_symbol.md` | 深入分析函数/类/模块 | ~8s |
-| 📝 **Write Module Doc** | `skills/write_module_doc.md` | 编写/更新模块文档 | ~6s |
-| 💾 **Manage Status** | `skills/manage_status.md` | 维护状态.yaml 和缓存 | ~1s |
+| 技能 | 文件 | 职责 |
+|------|------|------|
+| 🔍 **Discover Project** | `skills/discover_project.md` | 扫描项目结构，识别技术栈和入口 |
+| 🔬 **Analyze Symbol** | `skills/analyze_symbol.md` | 深入分析函数/类/模块 |
+| 📝 **Write Module Doc** | `skills/write_module_doc.md` | 编写/更新模块文档 |
+| 💾 **Manage Status** | `skills/manage_status.md` | 维护状态.yaml 和缓存 |
 
 ### 组合技能
 
@@ -113,25 +109,6 @@ flowchart TB
 帮我从这个已打开的项目工作区开始生成学习文档
 ```
 
-**执行流程**：
-```mermaid
-sequenceDiagram
-  participant U as 👤 用户
-  participant S as ⚡ quick_start
-  participant D as 🔍 discover
-  participant M as 💾 status
-  participant W as 📝 skeleton
-
-  U->>S: "帮我快速了解这个项目"
-  S->>D: 扫描项目结构
-  D-->>S: 项目地图 (87 files, frontend-react)
-  S->>M: 初始化状态
-  M-->>S: status.yaml created
-  S->>W: 生成技术骨架
-  W-->>S: tech-overview.md (skeleton)
-  S-->>U: ✅ 完成！请查看 docs/ 目录
-```
-
 **输出产物**：
 ```
 .ai/
@@ -148,25 +125,6 @@ docs/project/
 
 ```
 帮我深入分析 auth 模块，detail_level=intermediate
-```
-
-**执行流程**：
-```mermaid
-sequenceDiagram
-  participant U as 👤 用户
-  participant DA as 🔬 deep_analysis
-  participant A as 🔬 analyze
-  participant W as 📝 document
-  participant C as 💾 cache
-
-  U->>DA: "深入分析 auth 模块"
-  DA->>A: 分析 AuthService
-  A-->>DA: 3 patterns, confidence HIGH
-  DA->>W: 生成教学文档
-  W-->>DA: 03-auth.md created
-  DA->>C: 更新上下文缓存
-  C-->>DA: cache updated
-  DA-->>U: ✅ 完成！progress: 35%
 ```
 
 **输出产物**：
@@ -240,49 +198,6 @@ docs/modules/
 
 ---
 
-## 📊 执行追踪
-
-### 启用调试模式
-
-```
-启用调试模式 / Enable debug mode
-输出执行追踪 / Show execution trace
-显示 token 使用明细 / Show token usage breakdown
-为什么选择这个分析深度？ / Why this analysis mode?
-```
-
-### 追踪输出示例
-
-**执行时间线**：
-
-| 时间 | 技能 | 持续时间 | 状态 | Tokens |
-|------|------|----------|------|--------|
-| 0.0s | discover_project | 2.0s | ✅ | 3,500 |
-| 2.0s | manage_status | 0.5s | ✅ | 1,500 |
-| 2.5s | analyze_symbol | 8.0s | ✅ | 12,000 |
-| 10.5s | write_module_doc | 6.0s | ✅ | 8,000 |
-| 16.5s | manage_status | 0.5s | ✅ | 1,000 |
-
-**Token 使用明细**：
-
-| 阶段 | Tokens | 占比 |
-|------|--------|------|
-| 项目发现 | 3,500 | 13.5% |
-| 符号分析 | 12,000 | 46.2% |
-| 文档生成 | 8,000 | 30.8% |
-| 状态管理 | 2,500 | 9.6% |
-| **总计** | **26,000** | **100%** |
-
-**确定度分布**：
-
-| 级别 | 数量 | 占比 |
-|------|------|------|
-| ✅ HIGH | 8 | 61.5% |
-| ⚠️ MEDIUM | 3 | 23.1% |
-| ❓ LOW | 2 | 15.4% |
-
----
-
 ## 🎓 教学特色
 
 ### Few-shot 类比教学
@@ -339,9 +254,6 @@ class Container {
 project-learning-guide/
 ├── README.md                         # 📖 本文档（英文版）
 ├── README.zh-CN.md                   # 📖 中文版指南
-├── QUICK_REFERENCE.md                # 📋 命令速查表
-├── ARCHITECTURE.md                   # 🏗️ 可视化架构图
-├── INDEX.md                          # 📚 文档索引
 ├── SKILL.md                          # 🔧 主技能定义
 │
 ├── skills/                           # 🧩 可组合技能
@@ -355,72 +267,9 @@ project-learning-guide/
 │   ├── config.yaml                   # ⚙️ 配置参数
 │   └── execution_trace.md            # 🔍 执行追踪
 │
-├── references/                       # 📚 参考资料
-│   ├── status-schema.md              # 状态结构
-│   └── doc-patterns.md               # 文档模板
-│
-└── agents/
-    └── openai.yaml                   # 🤖 Agent 配置
-```
-
----
-
-## 🔄 工作流程
-
-### 完整文档生成流程
-
-```mermaid
-flowchart TD
-  Start([👤 用户请求]) --> Calibrate{需要校准?}
-  
-  Calibrate -->|是| Ask["❓ 询问学习者水平<br/>目标方向<br/>深度偏好"]
-  Calibrate -->|否| Discover
-  
-  Ask --> Discover["🔍 discover_project<br/>扫描项目结构<br/>识别技术栈"]
-  
-  Discover --> Assess{项目规模?}
-  Assess -->|<50 文件| Deep["deep_analysis 模式"]
-  Assess -->|50-200 文件| Moderate["moderate_analysis 模式"]
-  Assess -->|>200 文件| Shallow["shallow_first 模式"]
-  
-  Deep --> Status
-  Moderate --> Status
-  Shallow --> Status
-  
-  Status["💾 manage_status<br/>初始化/更新状态<br/>管理上下文缓存"]
-  
-  Status --> Analyze["🔬 analyze_symbol<br/>分析模块符号<br/>追踪依赖链<br/>识别设计模式"]
-  
-  Analyze --> Patterns{识别模式?}
-  Patterns -->|是| Analogy["🎓 生成类比示例<br/>10-15 行简化代码"]
-  Patterns -->|否| Counter["🔄 生成反例对比<br/>Why Not 分析"]
-  
-  Analogy --> Write
-  Counter --> Write
-  
-  Write["📝 write_module_doc<br/>生成教学文档<br/>应用质量检查清单"]
-  
-  Write --> Quality{质量检查?}
-  Quality -->|通过| Update
-  Quality -->|失败| AutoFix["🔧 自动修复<br/>补充缺失内容"]
-  AutoFix --> Write
-  
-  Update["💾 manage_status<br/>更新进度<br/>刷新缓存"]
-  
-  Update --> Continue{继续?}
-  Continue -->|是| Analyze
-  Continue -->|否| End
-  
-  End([✅ 完成<br/>WAITING_FOR_USER_CONFIRMATION])
-
-  style Start fill:#e1f5ff
-  style End fill:#e8f5e9
-  style Ask fill:#fff3e0
-  style Discover fill:#f3e5f5
-  style Status fill:#e8eaf6
-  style Analyze fill:#fce4ec
-  style Write fill:#e0f2f1
-  style Update fill:#f1f8e9
+└── references/                       # 📚 参考资料
+    ├── status-schema.md              # 状态结构
+    └── doc-patterns.md               # 文档模板
 ```
 
 ---
@@ -480,7 +329,6 @@ flowchart TD
 | 状态管理 | YAML (status.yaml) | 高信噪比元数据 |
 | 可视化 | Mermaid | 流程图、时序图 |
 | 配置系统 | YAML (config.yaml) | 参数化所有行为 |
-| 追踪系统 | YAML traces/ | 执行记录和调试 |
 
 ---
 
@@ -490,9 +338,6 @@ flowchart TD
 |------|------|------|
 | **README.md** | 主指南（本文档） | [查看](README.md) |
 | **README.zh-CN.md** | 中文版指南 | [查看](README.zh-CN.md) |
-| **QUICK_REFERENCE.md** | 单页命令速查表 | [查看](QUICK_REFERENCE.md) |
-| **ARCHITECTURE.md** | 可视化系统架构 | [查看](ARCHITECTURE.md) |
-| **INDEX.md** | 文档导航索引 | [查看](INDEX.md) |
 | **SKILL.md** | 主技能定义 | [查看](SKILL.md) |
 | **skills/config.yaml** | 配置参数 | [查看](skills/config.yaml) |
 

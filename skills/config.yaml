@@ -8,13 +8,13 @@ Users can override these parameters in their requests to customize skill behavio
 analysis_depth:
   # Maximum lines to read per chunk
   max_chunk_size: 200
-  
+
   # Minimum confidence threshold to accept conclusions (0.0-1.0)
   min_confidence_threshold: 0.7
-  
+
   # Maximum files to analyze per pass
   max_files_per_pass: 50
-  
+
   # Maximum symbols to analyze in deep_analysis mode per session
   max_symbols_per_session: 10
 ```
@@ -33,19 +33,19 @@ analysis_depth:
 doc_style:
   # Document language
   language: "mixed"  # "zh-CN" | "en-US" | "mixed"
-  
+
   # Detail level for explanations
   detail_level: "beginner"  # "beginner" | "intermediate" | "advanced"
-  
+
   # Include code examples in docs
   include_code_examples: true
-  
+
   # Include counter-example comparisons
   include_counter_examples: true
-  
+
   # Minimum module relationships before generating mermaid
   mermaid_threshold: 3
-  
+
   # Maximum code snippet length (lines)
   max_snippet_length: 20
 ```
@@ -65,13 +65,13 @@ doc_style:
 performance:
   # Maximum context window usage (tokens)
   max_context_tokens: 8000
-  
+
   # Enable parallel tool calls
   parallel_tool_calls: true
-  
+
   # Enable context cache across sessions
   cache_enabled: true
-  
+
   # Maximum execution time per skill (seconds)
   max_skill_duration_s: 300  # 5 minutes
 ```
@@ -90,19 +90,19 @@ performance:
 teaching_strategy:
   # Always include few-shot analogies for complex patterns
   use_analogies: true
-  
+
   # Always include counter-examples (Why Not analysis)
   use_counter_examples: true
-  
+
   # Minimum practice tasks per module
   min_practice_tasks: 3
-  
+
   # Practice task difficulty levels
   practice_levels:
     - "basic"
-    - "intermediate"  
+    - "intermediate"
     - "challenge"
-  
+
   # Include confidence annotations
   use_confidence_annotations: true
 ```
@@ -121,13 +121,13 @@ teaching_strategy:
 output_format:
   # Use markdown tables vs mermaid (when appropriate)
   prefer_mermaid: true
-  
+
   # Wrap mermaid node labels in double quotes
   mermaid_double_quotes: true
-  
+
   # Use anchor comments for incremental updates
   use_anchors: true
-  
+
   # Generate both Chinese and English section titles
   bilingual_titles: true
 ```
@@ -138,6 +138,113 @@ output_format:
 - "用表格代替流程图，prefer_mermaid=false"
 - "不要双语标题，bilingual_titles=false"
 - "这次全量重写，use_anchors=false"
+```
+
+## Zread Integration Configuration (new in v2.0)
+
+```yaml
+zread_integration:
+  # Enable zread CLI integration for fast wiki generation
+  enable_zread: true
+
+  # Auto-generate wiki if not exists (requires user consent)
+  auto_generate_wiki: false
+
+  # Use existing wiki without regeneration
+  use_existing_wiki_only: false
+
+  # Skip failing wiki pages during generation
+  skip_failed_pages: true
+
+  # Wiki generation timeout (seconds)
+  wiki_timeout_s: 600  # 10 minutes
+
+  # Prefer wiki content over traditional analysis
+  prefer_wiki_insights: true
+
+  # Stdio mode for programmatic invocation
+  use_stdio: false
+```
+
+### User Overrides
+```
+# User can specify in request:
+- "启用 zread 快速生成，enable_zread=true"
+- "不要自动生成 wiki，auto_generate_wiki=false"
+- "跳过失败页面，skip_failed_pages=true"
+- "使用 stdio 模式，use_stdio=true"
+- "只要现有 wiki，use_existing_wiki_only=true"
+```
+
+### Zread Installation Guide
+```bash
+# npm
+npm install -g zread_cli
+
+# Homebrew
+brew tap ZreadAI/homebrew-tap
+brew install zread
+
+# Verify
+zread version
+```
+
+### Common Zread Commands
+```bash
+# Generate wiki (with user consent)
+zread generate -y
+
+# Resume interrupted generation
+zread generate --draft resume -y
+
+# Skip failing pages
+zread generate -y --skip-failed
+
+# Browse locally
+zread browse
+
+# Programmatic mode
+zread generate -y --stdio
+```
+
+## Version Management Configuration (new in v2.0)
+
+```yaml
+version_management:
+  # Enable version tracking for teaching docs
+  enable_versions: true
+
+  # Versions directory
+  versions_dir: ".ai/versions/"
+
+  # Maximum versions to keep
+  max_versions: 10
+
+  # Auto-archive old versions
+  auto_archive: true
+```
+
+## Logging Configuration (new in v2.0)
+
+```yaml
+logging:
+  # Enable logging system
+  enable_logging: true
+
+  # Log directory
+  log_dir: ".ai/log/"
+
+  # Log levels: DEBUG, INFO, WARN, ERROR
+  log_level: "INFO"
+
+  # Maximum log file size (MB)
+  max_log_size_mb: 1
+
+  # Maximum log files to keep
+  max_log_files: 10
+
+  # Log token usage
+  log_token_usage: true
 ```
 
 ## Configuration Priority
@@ -151,10 +258,13 @@ User request parameters take highest priority and override all defaults.
 ## Example User Requests with Parameters
 
 ```
+# Quick start with zread
+"用 zread 快速了解这个项目，enable_zread=true，language=zh-CN"
+
 # Quick start with custom limits
 "帮我快速了解这个项目，max_files_per_pass=20，language=zh-CN"
 
-# Deep analysis with performance limits  
+# Deep analysis with performance limits
 "深入分析 auth 模块，max_context_tokens=6000，detail_level=intermediate"
 
 # Maintenance with specific anchors
@@ -162,4 +272,10 @@ User request parameters take highest priority and override all defaults.
 
 # No frills, minimal output
 "只要技术骨架，不要类比和反例，use_analogies=false，use_counter_examples=false"
+
+# Stdio mode for automation
+"使用 stdio 模式运行，use_stdio=true"
+
+# Skip failed pages for faster generation
+"快速生成，跳过失败页面，skip_failed_pages=true"
 ```
